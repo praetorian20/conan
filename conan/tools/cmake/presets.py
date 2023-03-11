@@ -210,7 +210,8 @@ class _IncludingPresets:
 
     @staticmethod
     def generate(conanfile, preset_path, user_presets_path, preset_prefix, preset_data):
-        if not user_presets_path:
+        disable_user_presets = conanfile.conf.get("tools.cmake.cmaketoolchain:disable_user_presets")
+        if not user_presets_path or disable_user_presets is True:
             return
 
         # If generators folder is the same as source folder, do not create the user presets
